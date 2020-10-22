@@ -1,0 +1,10 @@
+{
+	"name" : "SIModeRTS" ,
+	"version" : "0.0.1" ,
+	"factorio_version" : "1.0" ,
+	"title" : "SI RTS Mode" ,
+	"author" : "Sidoupiar" ,
+	"homepage" : "http://www.sidoupiar.com" ,
+	"description" : "Adds a RTS like game mode and a set of buildings, units, technologies ..." ,
+	"dependencies" : [ "base" , "SICoreFunctionLibrary >= 0.2.5" ]
+}
