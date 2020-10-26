@@ -53,11 +53,14 @@ constantData.forceList = { "base" }
 -- 数据系统
 constantData.canLoad = true
 constantData.mapData = {}
-constantData.forceData = {}
-constantData.typeData = {}
-constantData.skillData = {}
-constantData.resourceData = {}
-constantData.oreData = {}
+constantData.forceData =
+{
+	forceList = {} ,
+	typeData = {} ,
+	skillData = {} ,
+	resourceData = {} ,
+	oreData = {}
+}
 
 -- ------------------------------------------------------------------------------------------------
 -- ------- 标准数据包格式 -------------------------------------------------------------------------
@@ -174,7 +177,7 @@ constantData.resourceDataType =
 	private = "ResourcePrivate" -- 专用资源
 }
 -- 矿物数据的标准数据格式 , 使用的时候需要先 table.deepcopy()
-constantData.constantData.oreData =
+constantData.oreData =
 {
 	dataType = "ore" ,                  -- 数据类型 , 此项不要修改
 	
@@ -245,7 +248,7 @@ function constantData.LoadControlFiles( forceList , constants )
 end
 
 function constantData.InitForceData( forceName , forceData )
-	local newForceData = SIMODERTS.forceData[forceName]
+	local newForceData = SIMODERTS.forceData.forceList[forceName]
 	if newForceData then
 		if not newForceData.buildingDataList then newForceData.buildingDataList = {} end
 		if not newForceData.unitDataList then newForceData.unitDataList = {} end
@@ -265,48 +268,48 @@ function constantData.InitForceData( forceName , forceData )
 	end
 	if forceData.displayName then newForceData.displayName = table.deepcopy( forceData.displayName ) end
 	if forceData.startup then newForceData.startup = table.deepcopy( forceData.startup ) end
-	if not SIMODERTS.typeData then SIMODERTS.typeData = {} end
+	if not SIMODERTS.forceData.typeData then SIMODERTS.forceData.typeData = {} end
 	if forceData.buildingDataList then
-		for name , data in pairs( forceData.buildingDataList ) do
-			newForceData.buildingDataList[name] = data
-			SIMODERTS.typeData[name] = data
+		for i , data in pairs( forceData.buildingDataList ) do
+			table.insert( newForceData.buildingDataList , data )
+			SIMODERTS.forceData.typeData[data.name] = data
 		end
 	end
 	if forceData.unitDataList then
-		for name , data in pairs( forceData.unitDataList ) do
-			newForceData.unitDataList[name] = data
-			SIMODERTS.typeData[name] = data
+		for i , data in pairs( forceData.unitDataList ) do
+			table.insert( newForceData.unitDataList , data )
+			SIMODERTS.forceData.typeData[data.name] = data
 		end
 	end
-	if not SIMODERTS.skillData then SIMODERTS.skillData = {} end
+	if not SIMODERTS.forceData.skillData then SIMODERTS.forceData.skillData = {} end
 	if forceData.skillDataList then
-		for name , data in pairs( forceData.skillDataList ) do
-			newForceData.skillDataList[name] = data
-			SIMODERTS.skillData[name] = data
+		for i , data in pairs( forceData.skillDataList ) do
+			table.insert( newForceData.skillDataList , data )
+			SIMODERTS.forceData.skillData[data.name] = data
 		end
 	end
-	if not SIMODERTS.resourceData then SIMODERTS.resourceData = {} end
+	if not SIMODERTS.forceData.resourceData then SIMODERTS.forceData.resourceData = {} end
 	if forceData.resourceDataList then
-		for name , data in pairs( forceData.resourceDataList ) do
-			newForceData.resourceDataList[name] = data
-			SIMODERTS.resourceData[name] = data
+		for i , data in pairs( forceData.resourceDataList ) do
+			table.insert( newForceData.resourceDataList , data )
+			SIMODERTS.forceData.resourceData[data.name] = data
 		end
 	end
-	if not SIMODERTS.oreData then SIMODERTS.oreData = {} end
+	if not SIMODERTS.forceData.oreData then SIMODERTS.forceData.oreData = {} end
 	if forceData.oreDataList then
-		for name , data in pairs( forceData.oreDataList ) do
-			newForceData.oreDataList[name] = data
-			SIMODERTS.oreData[name] = data
+		for i , data in pairs( forceData.oreDataList ) do
+			table.insert( newForceData.oreDataList , data )
+			SIMODERTS.forceData.oreData[data.name] = data
 		end
 	end
-	if not SIMODERTS.forceData then SIMODERTS.forceData = {} end
-	SIMODERTS.forceData[forceName] = newForceData
+	if not SIMODERTS.forceData.forceList then SIMODERTS.forceData.forceList = {} end
+	SIMODERTS.forceData.forceList[forceName] = newForceData
 end
 
 -- 查询数据
 function constantData.FindTypeData( name , type )
-	if SIMODERTS.typeData then
-		for dataName , data in pairs( SIMODERTS.typeData ) do
+	if SIMODERTS.forceData.typeData then
+		for dataName , data in pairs( SIMODERTS.forceData.typeData ) do
 			if dataName == name then
 				if type then
 					if data.type == type then return data end
@@ -318,8 +321,8 @@ function constantData.FindTypeData( name , type )
 end
 
 function constantData.FindSkillData( name , type )
-	if SIMODERTS.skillData then
-		for dataName , data in pairs( SIMODERTS.skillData ) do
+	if SIMODERTS.forceData.skillData then
+		for dataName , data in pairs( SIMODERTS.forceData.skillData ) do
 			if dataName == name then
 				if type then
 					if data.type == type then return data end
@@ -331,8 +334,8 @@ function constantData.FindSkillData( name , type )
 end
 
 function constantData.FindResourceData( name , type )
-	if SIMODERTS.resourceData then
-		for dataName , data in pairs( SIMODERTS.resourceData ) do
+	if SIMODERTS.forceData.resourceData then
+		for dataName , data in pairs( SIMODERTS.forceData.resourceData ) do
 			if dataName == name then
 				if type then
 					if data.type == type then return data end
@@ -344,8 +347,8 @@ function constantData.FindResourceData( name , type )
 end
 
 function constantData.FindOreData( name , type )
-	if SIMODERTS.oreData then
-		for dataName , data in pairs( SIMODERTS.oreData ) do
+	if SIMODERTS.forceData.oreData then
+		for dataName , data in pairs( SIMODERTS.forceData.oreData ) do
 			if dataName == name then
 				if type then
 					if data.type == type then return data end

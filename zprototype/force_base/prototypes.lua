@@ -2,11 +2,11 @@
 -- ---------- 基础数据 ----------------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
 
-local forceName = SIMODERTS.currentLoadForce
+local forceName = SIMODERTS.currentLoadForce .. "-"
 
-local constructionCenter = SIMODERTS.FindTypeData( forceName.."-construction-center" )
-local constructionSign = SIMODERTS.FindTypeData( forceName.."-construction-sign" )
-local warehouse = SIMODERTS.FindTypeData( forceName.."-warehouse" )
+local constructionCenter = SIMODERTS.FindTypeData( forceName.."construction-center" )
+local constructionSign = SIMODERTS.FindTypeData( forceName.."construction-sign" )
+local warehouse = SIMODERTS.FindTypeData( forceName.."warehouse" )
 local generatorSteam = SIMODERTS.FindTypeData( forceName.."generator-steam" )
 local generatorSunLight = SIMODERTS.FindTypeData( forceName.."generator-sun-light" )
 local generatorNuclear = SIMODERTS.FindTypeData( forceName.."generator-nuclear" )
@@ -42,7 +42,7 @@ local resourceUranium = SIMODERTS.FindResourceData( forceName.."resource-uranium
 -- --- 定义建筑实体和建造配方 ---------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
 
-SIGen
+SIGen.NewSubGroup( "1-buildings" )
 
 -- 建造中心
 .NewMachine( constructionCenter.prototypeEntityName , SIGen.GetData( SITypes.entity.rocket , "rocket-silo" ) )
@@ -144,6 +144,8 @@ SIGen
 -- ------------------------------------------------------------------------------------------------
 -- --- 定义单位实体和建造配方 ---------------------------------------------------------------------
 -- ------------------------------------------------------------------------------------------------
+
+.NewSubGroup( "2-units" )
 
 -- 汽车
 

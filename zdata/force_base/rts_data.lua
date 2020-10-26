@@ -415,10 +415,9 @@ for i , v in pairs( forceData.buildingDataList ) do
 	if not v.preConditions.buildingList then v.preConditions.buildingList = { operation = SIFlags.condition.And } end
 	if not v.preConditions.buildingList.operation then v.preConditions.buildingList.operation = SIFlags.condition.And end
 	if not v.preConditions.buildingList.typeList then v.preConditions.buildingList.typeList = {} end
-	for n , m in pairs( v.preConditions.buildingList.typeList ) do
-		v.preConditions.buildingList.typeList[forceName.."-"..n] = m
-		v.preConditions.buildingList.typeList[n] = nil
-	end
+	local typeList = {}
+	for n , m in pairs( v.preConditions.buildingList.typeList ) do typeList[forceName.."-"..n] = m end
+	v.preConditions.buildingList.typeList = typeList
 	v.preConditions.buildingList.typeList[constructionCenter.name] = 1
 end
 
