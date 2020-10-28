@@ -15,7 +15,7 @@ function SIGen.FillRTSDataEntity( itemName , rtsData )
 			minable = { mining_time = 10000 , result = name }
 		}
 		if rtsData then
-			if rtsData.generateElectricity then customData.energy_usage = tostring( math.abs( rtsData.generateElectricity ) ) .. "KW" end
+			if rtsData.generateElectricity then customData.energy_usage = math.abs( rtsData.generateElectricity ) .. "KW" end
 			if rtsData.defaultRecipe then
 				customData.show_recipe_icon = false
 				customData.fixed_recipe = rtsData.defaultRecipe

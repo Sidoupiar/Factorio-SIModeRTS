@@ -79,12 +79,12 @@ local function SendMapErrorMessage( event )
 end
 
 local function SendMapTooBigMessage( event )
-	SendSystemMessage( "SIMODERTS.map-too-big" , tostring( SIMODERTS.mapData.width ) , tostring( SIMODERTS.mapData.height ) )
+	SendSystemMessage( "SIMODERTS.map-too-big" , SIMODERTS.mapData.width , SIMODERTS.mapData.height )
 	script.on_nth_tick( nil )
 end
 
 local function SendMapResizeMessage( event )
-	SendSystemMessage( "SIMODERTS.map-resize" , tostring( SIMODERTS.mapData.width ) , tostring( SIMODERTS.mapData.height ) )
+	SendSystemMessage( "SIMODERTS.map-resize" , SIMODERTS.mapData.width , SIMODERTS.mapData.height )
 	script.on_nth_tick( nil )
 end
 
