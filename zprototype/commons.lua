@@ -3,7 +3,7 @@
 -- ------------------------------------------------------------------------------------------------
 
 function SIGen.FillRTSDataEntity( itemName , rtsData )
-	local currentData = SIGen.GetCurrentDataEntity()
+	local currentData = SIGen.GetCurrentEntity()
 	if table.Has( SITypes.entity , currentData:GetType() ) then
 		local customData =
 		{
